@@ -1,0 +1,5 @@
+# Tested with your local environment. Pin versions after validation.
+numpy
+scipy
+matplotlib
+tensorflow
