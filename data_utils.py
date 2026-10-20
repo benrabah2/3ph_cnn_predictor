@@ -36,12 +36,17 @@ def normalize_log_intensity(X, q_min, q_max):
     """
     X shape: (N, N_PTS, 2) — channels [q, I]
     q normalized to [0, 1] using fixed q_min/q_max.
-    I transformed as log1p(I) / log1p(1000).
+    I is first rescaled per-profile so its own max is 1000 (matches
+    normalize_array() in the training data-prep pipeline, build_ml_real_data/
+    00_prepare_ml_inputs_3ph.ipynb), then transformed as log1p(I) / log1p(1000).
     Must match the preprocessing used during training of model_3ph_v1.0.0.keras.
     """
     Xn = X.astype(np.float32).copy()
     Xn[:, :, 0] = (Xn[:, :, 0] - q_min) / (q_max - q_min)
-    Xn[:, :, 1] = np.log1p(Xn[:, :, 1]) / np.log1p(1000.0)
+    I = Xn[:, :, 1]
+    I_max = np.max(I, axis=1, keepdims=True)
+    I = np.divide(I, I_max, out=np.zeros_like(I), where=I_max != 0) * 1000.0
+    Xn[:, :, 1] = np.log1p(I) / np.log1p(1000.0)
     return Xn
 
 
