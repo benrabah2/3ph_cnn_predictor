@@ -1,4 +1,4 @@
-import tensorflow as tf
+import keras
 import numpy as np
 
 from data_utils import normalize_log_intensity, extract_cem_windows
@@ -6,7 +6,7 @@ from config import CEM_MAX, CEM_WINDOWS
 
 
 def load_model(model_name):
-    return tf.keras.models.load_model(model_name)
+    return keras.models.load_model(model_name)
 
 
 def reconstruct_fractions(cem_present, cem_frac_norm, p_bcc, cem_max=CEM_MAX):

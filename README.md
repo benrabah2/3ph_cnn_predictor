@@ -8,6 +8,13 @@ Predict BCC, FCC, and cementite (Fe3C) phase fractions from HEXRD 2-theta profil
 ```sh
 pip install -r requirements.txt
 ```
+This installs [Keras 3](https://keras.io/keras_3/) with **JAX** as the backend (no TensorFlow required) — the lightest-weight option, with predictions matching TensorFlow to within float32 backend noise (~1e-4).
+Keras 3 does **not** auto-detect which backend you installed — you must select it explicitly via the `KERAS_BACKEND` environment variable before running:
+```sh
+export KERAS_BACKEND=jax
+python predict.py ...
+```
+To use TensorFlow or PyTorch instead, install that package (see the commented-out lines in `requirements.txt`) and set `KERAS_BACKEND=tensorflow` or `KERAS_BACKEND=torch` instead.
 
 2) Get the model file:
 

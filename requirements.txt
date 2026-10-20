@@ -2,4 +2,9 @@
 numpy
 scipy
 matplotlib
-tensorflow
+keras>=3
+
+# Keras 3 backend (pick one; jax is the lighter-weight default):
+jax[cpu]
+# tensorflow    # alternative backend: install this instead of jax, and set KERAS_BACKEND=tensorflow
+# torch         # alternative backend: install this instead of jax, and set KERAS_BACKEND=torch
